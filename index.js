@@ -4,10 +4,19 @@ body.style.flexDirection = "column";
 body.style.alignItems = "center";
 body.style.gap = "15px";
 
-// Create button element
+// Create button elements
 const resizeBtn = document.createElement("button");
 resizeBtn.textContent = "Resize / Clear";
-resizeBtn.style.marginBottom = '10px';
+
+// Create menu div
+const menu = document.createElement('div');
+menu.style.display = "flex";
+menu.style.gap = "10px";
+menu.style.padding = "5px";
+menu.style.backgroundColor = "burlywood";
+menu.style.color = "black";
+menu.style.alignItems = "center";
+menu.style.borderRadius = '5px';
 
 // Create width input element and label, set placeholder
 const inputX = document.createElement('input');
@@ -27,12 +36,13 @@ inputYLabel.for = "inputY";
 inputYLabel.textContent = 'Height:'
 inputY.placeholder = "500";
 
-// Append button, label and input elements to body
-body.appendChild(resizeBtn);
-body.appendChild(inputXLabel);
-body.appendChild(inputX);
-body.appendChild(inputYLabel);
-body.appendChild(inputY);
+// Append button, label and input elements to menu
+body.appendChild(menu);
+menu.appendChild(resizeBtn);
+menu.appendChild(inputXLabel);
+menu.appendChild(inputX);
+menu.appendChild(inputYLabel);
+menu.appendChild(inputY);
 
 let setWidth = 500;
 let setHeight = 500;
@@ -43,11 +53,12 @@ function drawCanvas(x, y) {
     const canvas = document.createElement("div");
     canvas.style.width = `${x}px`;
     canvas.style.height = `${y}px`;
-    canvas.style.backgroundColor = "red";
+    canvas.style.backgroundColor = "black";
     canvas.id = "canvas";
     canvas.style.display = "flex";
     canvas.style.flexWrap = "wrap";
     canvas.style.border = '10px groove burlywood';
+    canvas.style.borderRadius = '15px';
     body.appendChild(canvas);
 }
 
@@ -59,8 +70,9 @@ function populateCanvas(x, y, size = 10) {
         pixel.classList.add('pixel');
         pixel.style.width = `${size}px`;
         pixel.style.height = `${size}px`;
+        let opacity = 1;
         pixel.addEventListener('mouseenter', (e)=>{ 
-            pixel.style.backgroundColor = 'black'
+            pixel.style.opacity = opacity -= 0.1;
         });
         canvas.appendChild(pixel);
     }
