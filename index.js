@@ -12,6 +12,7 @@ resizeBtn.style.marginBottom = '10px';
 // Create width input element and label, set placeholder
 const inputX = document.createElement('input');
 inputX.id = 'inputX';
+inputX.type = 'number';
 const inputXLabel = document.createElement('label');
 inputXLabel.for = "inputX";
 inputXLabel.textContent = 'Width:'
@@ -20,6 +21,7 @@ inputX.placeholder = "160";
 // Create height input element and label, set placeholder
 const inputY = document.createElement('input');
 inputY.id = 'inputY'
+inputY.type = 'number';
 const inputYLabel = document.createElement('label');
 inputYLabel.for = "inputY";
 inputYLabel.textContent = 'Height:'
@@ -32,9 +34,10 @@ body.appendChild(inputX);
 body.appendChild(inputYLabel);
 body.appendChild(inputY);
 
-let pixelCount = 256; // This is 16 x 16
 let setWidth = 160;
 let setHeight = 160;
+let pixelSize = 10;
+let pixelCount = 256; // This is 16 x 16
 
 function drawCanvas(x, y) {
     const canvas = document.createElement("div");
@@ -47,8 +50,10 @@ function drawCanvas(x, y) {
     body.appendChild(canvas);
 }
 
-function populateCanvas() {
-    for (let i = 0; i < pixelCount; i++) {
+function populateCanvas(x, y) {
+    let xWidth = x / 10;
+    let yWidth = y /10;
+    for (let i = 0; i < xWidth * yWidth; i++) {
         const pixel = document.createElement('div');
         pixel.classList.add('pixel');
         canvas.appendChild(pixel);
@@ -58,7 +63,7 @@ function populateCanvas() {
 resizeBtn.addEventListener('click', ()=> {
     canvas.remove();
     drawCanvas(setWidth, setHeight); 
-    populateCanvas();
+    populateCanvas(setWidth, setHeight);
 })
 
 inputX.addEventListener('input', (e)=>{
@@ -71,4 +76,4 @@ inputY.addEventListener('input', (e)=>{
 
 
 drawCanvas(setWidth, setHeight);
-populateCanvas();
+populateCanvas(setWidth, setHeight);
