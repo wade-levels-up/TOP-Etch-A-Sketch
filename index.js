@@ -6,7 +6,7 @@ body.style.gap = "15px";
 
 // Create button element
 const resizeBtn = document.createElement("button");
-resizeBtn.textContent = "Resize Canvas";
+resizeBtn.textContent = "Resize / Clear";
 resizeBtn.style.marginBottom = '10px';
 
 // Create width input element and label, set placeholder
@@ -47,6 +47,7 @@ function drawCanvas(x, y) {
     canvas.id = "canvas";
     canvas.style.display = "flex";
     canvas.style.flexWrap = "wrap";
+    canvas.style.border = '10px groove burlywood';
     body.appendChild(canvas);
 }
 
@@ -58,6 +59,9 @@ function populateCanvas(x, y, size = 10) {
         pixel.classList.add('pixel');
         pixel.style.width = `${size}px`;
         pixel.style.height = `${size}px`;
+        pixel.addEventListener('mouseenter', (e)=>{ 
+            pixel.style.backgroundColor = 'black'
+        });
         canvas.appendChild(pixel);
     }
 }
