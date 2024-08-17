@@ -16,7 +16,7 @@ inputX.type = 'number';
 const inputXLabel = document.createElement('label');
 inputXLabel.for = "inputX";
 inputXLabel.textContent = 'Width:'
-inputX.placeholder = "160";
+inputX.placeholder = "500";
 
 // Create height input element and label, set placeholder
 const inputY = document.createElement('input');
@@ -25,7 +25,7 @@ inputY.type = 'number';
 const inputYLabel = document.createElement('label');
 inputYLabel.for = "inputY";
 inputYLabel.textContent = 'Height:'
-inputY.placeholder = "160";
+inputY.placeholder = "500";
 
 // Append button, label and input elements to body
 body.appendChild(resizeBtn);
@@ -34,8 +34,8 @@ body.appendChild(inputX);
 body.appendChild(inputYLabel);
 body.appendChild(inputY);
 
-let setWidth = 160;
-let setHeight = 160;
+let setWidth = 500;
+let setHeight = 500;
 let pixelSize = 10;
 let pixelCount = 256; // This is 16 x 16
 
@@ -50,21 +50,31 @@ function drawCanvas(x, y) {
     body.appendChild(canvas);
 }
 
-function populateCanvas(x, y) {
-    let xWidth = x / 10;
-    let yWidth = y /10;
+function populateCanvas(x, y, size = 10) {
+    let xWidth = x / size;
+    let yWidth = y / size;
     for (let i = 0; i < xWidth * yWidth; i++) {
         const pixel = document.createElement('div');
         pixel.classList.add('pixel');
+        pixel.style.width = `${size}px`;
+        pixel.style.height = `${size}px`;
         canvas.appendChild(pixel);
     }
 }
 
 resizeBtn.addEventListener('click', ()=> {
-    canvas.remove();
-    drawCanvas(setWidth, setHeight); 
-    populateCanvas(setWidth, setHeight);
-})
+    if (setWidth % pixelSize === 0 && 
+        setHeight % pixelSize === 0 && 
+        setHeight < 1000 &&
+        setWidth < 1000
+        ) {
+        canvas.remove();
+        drawCanvas(setWidth, setHeight); 
+        populateCanvas(setWidth, setHeight, pixelSize);
+    } else {
+        alert("Please enter a number less than 1000 for width and height that's also divisble by 10");
+    }
+});
 
 inputX.addEventListener('input', (e)=>{
     setWidth = e.target.value;
