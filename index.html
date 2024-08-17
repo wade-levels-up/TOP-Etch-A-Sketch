@@ -6,9 +6,31 @@
     <title>TOP-Etch-A-Sketch</title>
     <style>
         body {
-            background-color: black;
+            background-color: grey;
             color: aliceblue;
+            text-align: center;
         }
+
+        #mainDiv {
+            display: flex;
+            border: 2px solid black;
+            flex-wrap: wrap;
+            width: 256px;
+            height: 256px;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .pixel {
+            background-color: white;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .pixel:hover {
+            background-color: black;
+        }
+        
     </style>
 </head>
 <body>
