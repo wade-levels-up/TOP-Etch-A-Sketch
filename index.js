@@ -1,10 +1,33 @@
 const body = document.querySelector("body");
+body.style.display = "flex";
+body.style.flexDirection = "column";
+body.style.alignItems = "center";
+body.style.gap = "15px";
 
 const resizeBtn = document.createElement("button");
 resizeBtn.textContent = "Resize Canvas";
 resizeBtn.style.marginBottom = '10px';
 
+const inputX = document.createElement('input');
+inputX.id = 'inputX';
+const inputXLabel = document.createElement('label');
+inputXLabel.for = "inputX";
+inputXLabel.textContent = 'Width:'
+inputX.placeholder = "160";
+
+const inputY = document.createElement('input');
+inputY.id = 'inputY'
+const inputYLabel = document.createElement('label');
+inputYLabel.for = "inputY";
+inputYLabel.textContent = 'Height:'
+inputY.placeholder = "160";
+
 body.appendChild(resizeBtn);
+body.appendChild(inputXLabel);
+body.appendChild(inputX);
+body.appendChild(inputYLabel);
+body.appendChild(inputY);
+
 
 function drawCanvas(x, y) {
     const canvas = document.createElement("div");
