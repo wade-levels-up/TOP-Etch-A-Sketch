@@ -4,6 +4,7 @@ body.style.flexDirection = "column";
 body.style.alignItems = "center";
 body.style.gap = "15px";
 
+
 // Create button elements
 const resizeBtn = document.createElement("button");
 resizeBtn.textContent = "Resize / Clear";
@@ -11,41 +12,68 @@ resizeBtn.textContent = "Resize / Clear";
 // Create menu div
 const menu = document.createElement('div');
 menu.style.display = "flex";
+menu.style.width = '300px';
+menu.style.flexWrap = 'wrap';
 menu.style.gap = "10px";
 menu.style.padding = "5px";
 menu.style.backgroundColor = "burlywood";
 menu.style.color = "black";
 menu.style.alignItems = "center";
+menu.style.justifyContent = "space-around";
 menu.style.borderRadius = '5px';
 
+// Create opacity slider and label
+const slider = document.createElement('input');
+const sliderLabel = document.createElement('label');
+const sliderDiv = document.createElement('div');
+let sliderOpacityVal = 10;
+slider.id = 'slider';
+slider.type = 'range';
+slider.min = '0';
+slider.max = '10';
+slider.value = `${sliderOpacityVal}`;
+slider.addEventListener('input', (e)=> {
+    sliderOpacityVal = e.target.value
+});
+sliderLabel.for = "slider";
+sliderLabel.textContent = 'Opacity: ';
+sliderDiv.appendChild(sliderLabel);
+sliderDiv.appendChild(slider);
+
 // Create width input element and label, set placeholder
+const widthDiv = document.createElement('div');
 const inputX = document.createElement('input');
 inputX.id = 'inputX';
 inputX.type = 'number';
 const inputXLabel = document.createElement('label');
 inputXLabel.for = "inputX";
 inputXLabel.textContent = 'Width:'
-inputX.placeholder = "500";
+inputX.placeholder = "300";
+widthDiv.appendChild(inputXLabel);
+widthDiv.appendChild(inputX);
 
 // Create height input element and label, set placeholder
+const heightDiv = document.createElement('div');
 const inputY = document.createElement('input');
 inputY.id = 'inputY'
 inputY.type = 'number';
 const inputYLabel = document.createElement('label');
 inputYLabel.for = "inputY";
 inputYLabel.textContent = 'Height:'
-inputY.placeholder = "500";
+inputY.placeholder = "300";
+heightDiv.appendChild(inputYLabel);
+heightDiv.appendChild(inputY);
 
 // Append button, label and input elements to menu
 body.appendChild(menu);
 menu.appendChild(resizeBtn);
-menu.appendChild(inputXLabel);
-menu.appendChild(inputX);
-menu.appendChild(inputYLabel);
-menu.appendChild(inputY);
+menu.appendChild(sliderDiv);
+menu.appendChild(widthDiv);
+menu.appendChild(heightDiv);
 
-let setWidth = 500;
-let setHeight = 500;
+
+let setWidth = 300;
+let setHeight = 300;
 let pixelSize = 10;
 let pixelCount = 256; // This is 16 x 16
 
@@ -60,6 +88,7 @@ function drawCanvas(x, y) {
     canvas.style.border = '10px groove burlywood';
     canvas.style.borderRadius = '15px';
     body.appendChild(canvas);
+
 }
 
 function populateCanvas(x, y, size = 10) {
@@ -71,9 +100,12 @@ function populateCanvas(x, y, size = 10) {
         pixel.style.width = `${size}px`;
         pixel.style.height = `${size}px`;
         let opacity = 1;
-        pixel.addEventListener('mouseenter', (e)=>{ 
-            pixel.style.opacity = opacity -= 0.1;
+        pixel.addEventListener('pointerenter', ()=>{
+            if (opacity > 0) {
+                pixel.style.opacity = opacity -= (sliderOpacityVal / 10);
+            }
         });
+
         canvas.appendChild(pixel);
     }
 }
